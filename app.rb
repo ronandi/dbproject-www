@@ -2,5 +2,5 @@ require 'sinatra'
 require 'sequel'
 
 get '/' do
-  "Sinatra is up"
+  erb :index
 end
