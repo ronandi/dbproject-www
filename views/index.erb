@@ -1,0 +1,20 @@
+<div id="wrap">
+  <div class="container">
+    <div class="page-header">
+      <h1>Topic index</h1>
+    </div>
+    <p class="lead">All the topics</p>
+    <ol>
+      <%= "<h2>There are no topics yet. Start one!</h2>" if @topics.empty? %>
+      <% @topics.each do |topic| %>
+        <li><a href=/topic/<%= topic.id %>><%= topic.shortened_topic %></a></li>
+      <% end %>
+    </ol>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted credit"><a href="https://github.com/ronandi/gm-topicbot.rb">gm-topicbot.rb</a> created by <a href="https://github.com/ronandi/">Rohit Kumar</a>.</p>
+  </div>
+</div>
