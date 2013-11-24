@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="page-header">Trend 2 - Hipsters</h1>
+  <p class="lead">Hidden subculture</p>
+  <div id="graph1">
+    <h2 class="page-header">22-27 year olds firstbeers by ibu</h2>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">SQL Query: <code>(select "0-20" as iburange, count(*)<br/> from firstbeer join beers on beer = name join drinkers on drinker_id = id<br/>
+    where age >= 22 and age <= 27 and ibu <= 20) union<br/>
+    (select "20+" as iburange, count(*) from<br/> firstbeer join beers on beer = name join drinkers on drinker_id = id<br/>
+    where age >= 22 and age <= 27 and ibu > 20)</code>
+  <p>
+  There is a distinct population of 22-27 year olds (~25% of this population) that have not started on light beers, but instead more bitter ones
+  </p>
+</div>
+<script src="/js/d3.v3.min.js"></script>
+<script src="/js/trend2graph1.js"></script>

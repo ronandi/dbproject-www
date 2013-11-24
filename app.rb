@@ -54,6 +54,14 @@ get '/trend1' do
   erb :trend1
 end
 
+get '/trend2' do
+  erb :trend2
+end
+
+get '/trend3' do
+  erb :trend3
+end
+
 get '/trend1json' do
   DB.fetch('select beer, count(*) as frequency from firstbeer group by beer order by count(*) desc limit 10').all.to_json
 end
@@ -69,4 +77,18 @@ end
 get '/trend1graph4' do
   query = 'select age, gender, avg(ibu) as ibu from favorite join beers on beer = name join drinkers on drinker_id = id group by age, gender order by gender desc, age asc'
   DB.fetch(query).all.to_json
+end
+
+get '/trend3data' do
+  query = 'select beers.abv as favorite_abv, avg(b1.abv) as liked_abv_average from favorite join beers on beer = name join drinkers on drinker_id = id
+  join likes on likes.drinker_id = id join beers b1 on likes.beer = b1.name
+  group by favorite_abv'
+  DB.fetch(query).all.to_json
+end
+
+get '/trend2graph1' do
+  DB.fetch('(select "0-20" as iburange, count(*) as frequency from  firstbeer join beers on beer = name join drinkers on drinker_id = id
+           where age >= 22 and age <= 27 and ibu <= 20) union
+           (select "20+" as iburange, count(*) as frequency from firstbeer join beers on beer = name join drinkers on drinker_id = id
+            where age >= 22 and age <= 27 and ibu > 20)').all.to_json
 end

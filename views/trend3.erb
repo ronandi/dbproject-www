@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="page-header">Trend 3 - Some people just like stronger stuff</h1>
+  <p class="lead">Following abv</p>
+  <div id="graph1">
+    <h2 class="page-header">Favorite beer abv compared to Average liked beer abv</h2>
+    <svg></svg>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">SQL Query: <code>select beers.abv as favorite_abv, avg(b1.abv) as liked_abv_average<br/>
+    from favorite join beers on beer = name join drinkers on drinker_id = id<br/>
+    join likes on likes.drinker_id = id join beers b1 on likes.beer = b1.name<br/>
+    group by favorite_abv</code>
+  </p>
+  <p>
+  Here we have grouped all people who share the same abv on their favorite beer, and have computed the average 
+  abv of their likes. You can see that as the abv of one’s favorite beer goes up, so does the average of their liked beers.
+  People tend to favor strong or light drinks depending on their tastes.
+  </p>
+</div>
+<script src="/js/d3.v3.min.js"></script>
+<script src="/js/nv.d3.min.js"></script>
+<script src="/js/trend3.js"></script>
