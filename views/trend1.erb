@@ -1,70 +1,63 @@
-<div id="graph"></div>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+<div class="container">
+  <h1 class="page-header">Trend 1 - First beers and Favorite beers</h1>
+  <p class="lead">Almost everyone starts the same, but they all take different paths</p>
+  <div id="graph1">
+    <h2 class="page-header">Most popular first beers</h2>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">SQL Query: <code>select beer, count(*) from firstbeer group by beer order by count(*) desc limit 10</code></p>
+  <p>
+  As you can see, the vast majority of drinkers start on the same types of beers: 
+  Light lagers manufactured by the biggest companies.
+  </p>
 
-var margin = {top: 100, right: 0, bottom: 165, left: 50},
-    width = 900;
-    height = 500;
+  <div id="graph2">
+    <h2 class="page-header">Most popular first beers by type</h2>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">
+  SQL Query: <code>select `type`, count(*) from firstbeer join beers on firstbeer.beer = beers.name group by type</code></p>
+  <p>
+  Lagers are the most popular first beers by far.
+  </p>
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+  <div id="graph3">
+    <h2 class="page-header">Favorite beers by type</h2>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">
+  SQL Query: <code>select type, count(*) from favorite join beers on beer = name group by type</code></p>
+  <p>
+  Although first beers were not very varied, you can see that favorite beers clearly are. More people enjoy different
+  kinds of beers as they grow older and try more beers. Stouts are even more popular than lagers.
+  </p>
+  <div id="graph4">
+    <h2 class="page-header">Favorite beer ibus by age and gender</h2>
+    <svg></svg>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">
+  SQL Query: <code>select age, gender, avg(ibu) from favorite join beers on beer = name<br/> join drinkers on drinker_id = id group by age, gender order by gender desc, age asc</code></p>
+  <p>
+   The data reveals that as people get older, men tend to enjoy more bitter (higher ibu) beers, but women tend to do 
+   the exact opposite. Older women enjoy less bitter beers.
+  </p>
+  <div id="graph5">
+    <h2 class="page-header">Average Favorite beer IBU</h2>
+    <h3>Men: 56.0784</h3>
+    <h3>Women: 15.3418</h3>
+  </div>
+  <h3>Details</h3>
+  <p class="lead">
+  SQL Query: <code>select gender, avg(ibu) from favorite join beers on beer = name join drinkers on drinker_id = id group by gender</code></p>
+  <p>
+  Average favorite IBUs confirm the trend that men tend to bitter beers, whereas women tend to less bitter ones.
+  </p>
+</div>
 
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-
-var svg = d3.select("#graph").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.json("trend1json", function(error, data) {
-  x.domain(data.map(function(d) { return d.beer; }));
-  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", function(d) {
-        return "rotate(-65)"
-      });
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Frequency");
-
-  svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.beer); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.frequency); })
-      .attr("height", function(d) { return height - y(d.frequency); });
-
-});
-
-function type(d) {
-  d.frequency = +d.frequency;
-  return d;
-}
-</script>
+<script src="/js/d3.v3.min.js"></script>
+<script src="/js/nv.d3.min.js"></script>
+<script src="/js/trend1graph1.js"></script>
+<script src="/js/trend1graph2.js"></script>
+<script src="/js/trend1graph3.js"></script>
+<script src="/js/trend1graph4.js"></script>

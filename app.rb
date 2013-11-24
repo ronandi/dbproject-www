@@ -17,6 +17,10 @@ get '/' do
   erb :index
 end
 
+get '/about' do
+  erb :about
+end
+
 get '/beers' do
   @beers = beers.all
   erb :beers
@@ -26,6 +30,12 @@ get '/drinkers' do
   page_num = params[:page] || 1
   @drinkers = drinkers.paginate(page_num.to_i, 100)
   erb :drinkers
+end
+
+get '/firstbeers' do
+  page_num = params[:page] || 1
+  @firstbeers = DB.fetch('select name, beer from drinkers join firstbeer where id = drinker_id').paginate(page_num.to_i, 100)
+  erb :firstbeers
 end
 
 get '/favorites' do
@@ -48,3 +58,15 @@ get '/trend1json' do
   DB.fetch('select beer, count(*) as frequency from firstbeer group by beer order by count(*) desc limit 10').all.to_json
 end
 
+get '/trend1graph2' do
+  DB.fetch('select `type`, count(*) as frequency from firstbeer join beers on firstbeer.beer = beers.name group by type').all.to_json
+end
+
+get '/trend1graph3' do
+  DB.fetch('select type, count(*) as frequency from favorite join beers on beer = name group by type').all.to_json
+end
+
+get '/trend1graph4' do
+  query = 'select age, gender, avg(ibu) as ibu from favorite join beers on beer = name join drinkers on drinker_id = id group by age, gender order by gender desc, age asc'
+  DB.fetch(query).all.to_json
+end

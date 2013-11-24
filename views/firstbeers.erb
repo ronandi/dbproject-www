@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="page-header">
+    <h1>First Beer Data</h1>
+  </div>
+  <p class="lead">
+  How people got started on the road to alcoholism.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>First Beer</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @firstbeers.each do |firstbeer| %>
+      <tr>
+        <td><%= firstbeer[:name] %></td>
+        <td><%= firstbeer[:beer] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @firstbeers, renderer: BootstrapPagination::Sinatra %>
+</div>
