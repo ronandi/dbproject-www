@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require 'sequel'
 require 'will_paginate'
 require 'will_paginate/sequel'
@@ -38,3 +39,12 @@ get '/likes' do
   @likes = DB.fetch('select name, beer from drinkers join likes where id = drinker_id').paginate(page_num.to_i, 100)
   erb :likes
 end
+
+get '/trend1' do
+  erb :trend1
+end
+
+get '/trend1json' do
+  DB.fetch('select beer, count(*) as frequency from firstbeer group by beer order by count(*) desc limit 10').all.to_json
+end
+
