@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Favorite Beer Data</h1>
+  </div>
+  <p class="lead">
+  Drinkers' favorites  we tracked.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Favorite Beer</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @favorites.each do |fav| %>
+      <tr>
+        <td><%= fav[:name] %></td>
+        <td><%= fav[:beer] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @favorites, renderer: BootstrapPagination::Sinatra %>
+</div>

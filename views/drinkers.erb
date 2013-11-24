@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Drinker Data</h1>
+  </div>
+  <p class="lead">
+  Drinkers we tracked.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>City</th>
+        <th>Phone</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @drinkers.each do |drinker| %>
+      <tr>
+        <td><%= drinker[:name] %></td>
+        <td><%= drinker[:gender] %></td>
+        <td><%= drinker[:age] %></td>
+        <td><%= drinker[:city] %></td>
+        <td><%= drinker[:phone] %></td>
+        <td><%= drinker[:address] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @drinkers, renderer: BootstrapPagination::Sinatra %>
+</div>

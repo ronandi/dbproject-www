@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Likes Beer Data</h1>
+  </div>
+  <p class="lead">
+  Drinkers' likes  we tracked.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Liked Beer</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @likes.each do |like| %>
+      <tr>
+        <td><%= like[:name] %></td>
+        <td><%= like[:beer] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @likes, renderer: BootstrapPagination::Sinatra %>
+</div>

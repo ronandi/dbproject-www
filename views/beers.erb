@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Beer Data</h1>
+  </div>
+  <p class="lead">
+  Beers we tracked.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>IBU</th>
+        <th>ABV</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @beers.each do |beer| %>
+      <tr>
+        <td><%= beer[:name] %></td>
+        <td><%= beer[:manf] %></td>
+        <td><%= beer[:ibu] %></td>
+        <td><%= beer[:abv] %></td>
+        <td><%= beer[:type] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
